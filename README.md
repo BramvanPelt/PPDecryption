@@ -9,7 +9,7 @@ privacy and security of users in an authentication system. This technology has b
 in the Dutch "EID" system. Polymorphic pseudonymisation is based on the El-Ghamal encryption system
 and split proof evidence. For more information on the El-Ghamal crypto system, please see: ... .
 
-For more information on Polymorphic pseudonymisation pease see: 
+For more information on Polymorphic pseudonymisation pease see: http://www.cs.ru.nl/E.Verheul/papers/PP2/PEKScheme.pdf
 
 INSTALL
 The library can be installed by compiling the code and adding the resulting JAR file to the JAVA_HOME build path.
