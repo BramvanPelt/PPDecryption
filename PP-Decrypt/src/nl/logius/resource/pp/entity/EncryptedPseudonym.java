@@ -31,7 +31,7 @@ public class EncryptedPseudonym extends EncryptedEntity {
 
         final ECPoint point = points[1].subtract(points[0].multiply(decryptKey.getPrivateKey())).
             multiply(closingKey.getPrivateKey()).normalize();
-        return new Pseudonym(getRecipientKeySetVersion(), point);
+        return new Pseudonym(closingKey.getRecipientKeySetVersion(), point);
     }
 
     public String getDiversifier() {
