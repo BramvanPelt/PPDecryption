@@ -1,4 +1,4 @@
-package nl.logius.resource.example;
+package nl.logius.resource.pp.util;
 
 /*
  * This source code is protected by the EUPL version 1.2 and is part of the "PP Decrypt" example package.
@@ -6,8 +6,9 @@ package nl.logius.resource.example;
  * Copyright: Logius (2018)
  * @author: Bram van Pelt 
  */
-
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.Security;
@@ -15,12 +16,12 @@ import java.util.Map;
 
 import javax.crypto.Cipher;
 
-import nl.logius.resource.pp.util.DecryptUtil;
-import nl.logius.resource.pp.util.KeyUtil;
+import org.junit.Test;
 
-public class main {
+public class DecryptUtilTest {
 	
-	public static void main(String [] args)
+	@Test
+	public void testDecrypt()
 	{	
 		try 
 		{
@@ -33,7 +34,7 @@ public class main {
 			// ook bouncycastle moet worden geregistreerd als JAVA security provider. Normaal wordt dit op de server gedaan voordat de software wordt gerunned.
 			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			
-			// laad de sleutels in het geheugen, normaal komen deze uit een keystore
+			
 			run();
 			
 		} catch (Exception e) {
@@ -42,6 +43,7 @@ public class main {
 	}
 	
 	public static void run() throws Exception {
+		// laad de sleutels in het geheugen, normaal komen deze uit een keystore
 		KeyUtil keys = new KeyUtil(); 
 		keys.setIdentityKeyLocation("target/test-classes/p7/ID-4.p7");
 		keys.setPseudoKeyLocation("target/test-classes/p7/PD-4.p7");
@@ -62,6 +64,7 @@ public class main {
 		System.out.println("Pseudo:" + simPseudo);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void fixKeyLength() {
 	    String errorString = "Failed manually overriding key-length permissions.";
 	    int newMaxKeyLength;
