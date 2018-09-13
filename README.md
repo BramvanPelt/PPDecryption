@@ -36,5 +36,12 @@ Special thanks to:
 - The Dutch Ministry of the Interior and Kingdom Relations
 - The Logius ETD team
 - The Logius DigID team
+- Martijn Kooij
 
 For making this repository possible.
+
+CONTACT:
+Administration of the repo can be contacted via: bram.vanpelt@tesorion.nl
+
+AFFILIATED PROJECTS:
+https://github.com/MartijnKooij/PolymorphicPseudonymisation (Dotnet implementation of this library)
