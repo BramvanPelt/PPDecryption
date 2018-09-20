@@ -35,7 +35,7 @@ public class DecryptUtilTest {
 			Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			
 			
-			run();
+			run2();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,6 +54,28 @@ public class DecryptUtilTest {
 		//simuleer een EncryptedID (ei) en EncryptedPseudonym (ep)
 		String ei = new String ( Files.readAllBytes( Paths.get("target/test-classes/signed/900095222-2-4-I.txt") ) );
 		String ep = new String ( Files.readAllBytes( Paths.get("target/test-classes/signed/900095222-2-4-P.txt") ) );
+		
+		//Pre-load complete, Decrypt de ei en ep
+		String simBsn = DecryptUtil.getIdentity(ei,keys.getDecryptKey(), keys.getVerifiers());
+		String simPseudo = DecryptUtil.getPseudonym(ep, keys.getPDecryptKey(), keys.getPClosingKey(), keys.getPVerifiers());
+		
+		//Doe er iets nuttigs mee ;)
+		System.out.println("Identity:" + simBsn);
+		System.out.println("Pseudo:" + simPseudo);
+	}
+	
+	public static void run2() throws Exception {
+		// laad de sleutels in het geheugen, normaal komen deze uit een keystore
+		KeyUtil keys = new KeyUtil(); 
+		keys.setIdentityKeyLocation("/temp/keys/dv_keys_ID_D_00000003273785290000.p7");
+		keys.setPseudoKeyLocation("/temp/keys/dv_keys_PD_D_00000003273785290000.p7");
+		keys.setPseudoClosingKeyLocation("/temp/keys/dv_keys_PC_D_00000003273785290000.p7");
+		keys.setPrivatep8("/temp/keys/private.p8");
+		keys.init();
+		
+		//simuleer een EncryptedID (ei) en EncryptedPseudonym (ep)
+		String ei = new String ( Files.readAllBytes( Paths.get("/temp/keys/bsn1.txt") ) );
+		String ep = new String ( Files.readAllBytes( Paths.get("/temp/keys/pseudoid1.txt") ) );
 		
 		//Pre-load complete, Decrypt de ei en ep
 		String simBsn = DecryptUtil.getIdentity(ei,keys.getDecryptKey(), keys.getVerifiers());
