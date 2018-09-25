@@ -17,7 +17,7 @@ public class Signature {
     private final BigInteger r;
     private final BigInteger s;
     private static final String EC_SCHNORR_SHA384_OID = "0.4.0.127.0.7.1.1.4.3.3";
-    private static final String EC_SDSA_SHA384_OID = "1.0.14888.3.0.11";
+    private static final String EC_SDSA_SHA384_OID = "0.4.0.127.0.7.1.1.4.4.3";
 
     public Signature(BigInteger r, BigInteger s) {
         this.r = r;
