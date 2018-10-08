@@ -31,15 +31,42 @@ public class KeyUtil {
 	private EncryptedVerifiers pVerifiers;
 	private PseudonymDecryptKey pDecryptKey;
 	private PseudonymClosingKey pClosingKey;
-	private String IDENTITY_POINT = "AmUppru04ghsI/FvbvV59eoX3lCUWlMAZKu1pPdlvixch5avV+aFwQg=";
-	private String PSEUDONYM_POINT = "A9GtKDUn++nl2NWtN4F/2id1gmBhxn4I6Qr9BfeMN+fjNuXGvE79qHc=";
-	
 	private String identityKeyLocation;
 	private String pseudoKeyLocation;
 	private String pseudoClosingKeyLocation;
 	private String privatep8;
 	
+	private String identityPoint;
+	private String pseudonymPoint;
 	
+	/**
+	 * @return the identityPoint
+	 */
+	public String getIdentityPoint() {
+		return identityPoint;
+	}
+
+	/**
+	 * @param identityPoint the identityPoint to set
+	 */
+	public void setIdentityPoint(String identityPoint) {
+		this.identityPoint = identityPoint;
+	}
+
+	/**
+	 * @return the pseudonymPoint
+	 */
+	public String getPseudonymPoint() {
+		return pseudonymPoint;
+	}
+
+	/**
+	 * @param pseudonymPoint the pseudonymPoint to set
+	 */
+	public void setPseudonymPoint(String pseudonymPoint) {
+		this.pseudonymPoint = pseudonymPoint;
+	}
+
 	/**
 	 * @return the privatep8
 	 */
@@ -117,7 +144,7 @@ public class KeyUtil {
             // Convert PEM to IdentityDecryptKey
             decryptKey = DecryptKey.fromPem(identityKeyPem, IdentityDecryptKey.class);
             // Derive verifier (for signature verifying) from key
-            verifiers = decryptKey.toVerifiers(IDENTITY_POINT);
+            verifiers = decryptKey.toVerifiers(identityPoint);
         }        
         catch (Exception e) {
         	throw new Exception("Unable to read identity key", e);
@@ -131,7 +158,7 @@ public class KeyUtil {
             // Convert PEM to IdentityDecryptKey
         	pDecryptKey = DecryptKey.fromPem(pseudoKeyPem, PseudonymDecryptKey.class);
             // Derive verifier (for signature verifying) from key
-            pVerifiers = pDecryptKey.toVerifiers(PSEUDONYM_POINT);
+            pVerifiers = pDecryptKey.toVerifiers(pseudonymPoint);
         }        
         catch (Exception e) {
         	throw new Exception("Unable to read pseudo key", e);
