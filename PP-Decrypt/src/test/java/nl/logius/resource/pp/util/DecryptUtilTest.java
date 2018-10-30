@@ -71,6 +71,8 @@ public class DecryptUtilTest {
 		keys.setPseudoKeyLocation("/temp/keys/dv_keys_PD_D_00000003273785290000.p7");
 		keys.setPseudoClosingKeyLocation("/temp/keys/dv_keys_PC_D_00000003273785290000.p7");
 		keys.setPrivatep8("/temp/keys/private.p8");
+		keys.setIdentityPoint("BAVhvzQkCzzIpoIX7uIfauLa6gPsMZp3Ka4DguHlDt5tGwbLeIsXorAwsSYm8QvNDntoKkqc+HF//OpATfa0028wefZnnMvRwgWqHS1/0t9G");
+		keys.setPseudonymPoint("BLHPFwnFpnoTvQm03lMQnLdOSpWOnTpsYfxHPmAg/Y3umIcW2PKuwW3Pk5+VDR1ba2z15114Ib8k62aVwieolneiO6bDOaQGKDzXi/4k1/MX");
 		keys.init();
 		
 		//simuleer een EncryptedID (ei) en EncryptedPseudonym (ep)
