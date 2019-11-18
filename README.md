@@ -43,7 +43,7 @@ Special thanks to:
 For making this repository possible.
 
 CONTACT:
-Administration of the repo can be contacted via: bram.vanpelt@tesorion.nl
+Administration of the repo can be contacted via: bram.vanpelt@kpn.com
 
 AFFILIATED PROJECTS:
 
