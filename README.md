@@ -36,6 +36,7 @@ Special thanks to:
 - Logius (For publication of documentation)
 - Martijn Kooij
 - Eric Verheul
+- Ewald Wasscher
 
 For making this repository possible.
 
@@ -43,4 +44,7 @@ CONTACT:
 Administration of the repo can be contacted via: bram.vanpelt@tesorion.nl
 
 AFFILIATED PROJECTS:
+
 https://github.com/MartijnKooij/PolymorphicPseudonymisation (Dotnet implementation of this library)
+
+https://github.com/ewasscher/pp-decrypt-core (Maven rapackaged version of this project)
