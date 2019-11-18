@@ -1,4 +1,5 @@
 WARNING: This repository has been updated at 18-11-2019 whith an additional signature verification method. This new signature method will be the new defacto standard starting from december 2020. If you have implemented this library before the update date, please download the sources again and recomplile. You should be able to replace the libary jars with no problems.
+-----
 
 ABSTRACT
 This repository contains two projects, the PP-Decrypt library and the PP-Decrypt example package. 
@@ -48,5 +49,3 @@ Administration of the repo can be contacted via: bram.vanpelt@kpn.com
 AFFILIATED PROJECTS:
 
 https://github.com/MartijnKooij/PolymorphicPseudonymisation (Dotnet implementation of this library)
-
-https://github.com/ewasscher/pp-decrypt-core (Maven rapackaged version of this project)
