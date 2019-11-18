@@ -1,5 +1,6 @@
 /*
  * This source code is protected by the EUPL version 1.2 and is part of the "PP Decrypt" library.
+ * SPDX-Licence-Identifier: EUPL-1.2
  * 
  * Copyright: Logius (2018)
  * @author: Bram van Pelt 
@@ -19,7 +20,6 @@ import nl.logius.resource.pp.key.EncryptedVerifier;
 import nl.logius.resource.pp.key.EncryptedVerifiers;
 
 public class EncryptedEntityParser {
-    private static final String EC_SCHNORR_SHA384_OID = "0.4.0.127.0.7.1.1.4.3.3";
     private final Asn1Parser parser;
     private BsnkType bsnkType;
 
@@ -31,6 +31,7 @@ public class EncryptedEntityParser {
     private String diversifier;
     private char type;
     private ECPoint[] points;
+    private String SchnorrOid;
 
     public EncryptedEntityParser(byte[] encoded) {
         parser = new Asn1Parser(encoded);
@@ -67,37 +68,44 @@ public class EncryptedEntityParser {
     }
 
     private void decodeSigned(boolean isPseudonym, EncryptedVerifier verifier) {
-        try {
-            final byte[] payload = parser.readObject(DERSequenceParser.class).getLoadedObject().getEncoded();
-            final Asn1Parser payloadParser = new Asn1Parser(payload);
-            payloadParser.readObject(DERSequenceParser.class);
-
-            bsnkType = payloadParser.checkHeader();
-            switch (bsnkType) {
-            case ENCRYPTED_IDENTITY:
-                if (isPseudonym) {
-                    throw new ParsingException("Encrypted identity inside signed encrypted pseudonym");
-                }
-                decodePayload(payloadParser, false);
-                break;
-            case ENCRYPTED_PSEUDONYM:
-                if (!isPseudonym) {
-                    throw new ParsingException("Encrypted pseudonym inside signed encrypted identity");
-                }
-                decodePayload(payloadParser, true);
-                break;
-            default:
-                throw new ParsingException(String.format("Cannot handle type %s", bsnkType));
-            }
-
-            final Signature signature = decodeSignature();
-            verifier.verify(payload, signature);
-
-        } catch (IOException e) {
-            throw new ParsingException("ASN1 decode error", e);
-        }
+    	decodeSigned(isPseudonym, verifier, true);
     }
 
+    private void decodeSigned(boolean isPseudonym, EncryptedVerifier verifier, boolean signatureCheck) {
+    	 try {
+             final byte[] payload = parser.readObject(DERSequenceParser.class).getLoadedObject().getEncoded();
+             final Asn1Parser payloadParser = new Asn1Parser(payload);
+             payloadParser.readObject(DERSequenceParser.class);
+
+             bsnkType = payloadParser.checkHeader();
+             switch (bsnkType) {
+             case ENCRYPTED_IDENTITY:
+                 if (isPseudonym) {
+                     throw new ParsingException("Encrypted identity inside signed encrypted pseudonym");
+                 }
+                 decodePayload(payloadParser, false);
+                 break;
+             case ENCRYPTED_PSEUDONYM:
+                 if (!isPseudonym) {
+                     throw new ParsingException("Encrypted pseudonym inside signed encrypted identity");
+                 }
+                 decodePayload(payloadParser, true);
+                 break;
+             default:
+                 throw new ParsingException(String.format("Cannot handle type %s", bsnkType));
+             }
+             
+             if(signatureCheck)
+             {
+            	 final Signature signature = decodeSignature();
+            	 verifier.verify(payload, signature, SchnorrOid);
+             }
+
+         } catch (IOException e) {
+             throw new ParsingException("ASN1 decode error", e);
+         }
+       
+    }
     private void decodePayload(Asn1Parser payloadParser, boolean isPseudonym) throws IOException {
         schemeVersion = payloadParser.readObject(ASN1Integer.class).getValue().intValue();
         schemeKeyVersion = payloadParser.readObject(ASN1Integer.class).getValue().intValue();
@@ -130,10 +138,7 @@ public class EncryptedEntityParser {
 
     private Signature decodeSignature() throws IOException {
         parser.readObject(DERSequenceParser.class);
-        final String oid = parser.readObject(ASN1ObjectIdentifier.class).getId();
-        if (!EC_SCHNORR_SHA384_OID.equals(oid)) {
-            throw new ParsingException(String.format("Expected EC Schnorr SHA-384 signature, got %s", oid));
-        }
+        SchnorrOid = parser.readObject(ASN1ObjectIdentifier.class).getId();
         parser.readObject(DERSequenceParser.class);
         return new Signature(
             parser.readObject(ASN1Integer.class).getPositiveValue(),
@@ -141,6 +146,11 @@ public class EncryptedEntityParser {
         );
     }
 
+    public String getSchnorrOID()
+    {
+    	return SchnorrOid;
+    }
+    
     public BsnkType getBsnkType() {
         return bsnkType;
     }

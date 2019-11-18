@@ -1,5 +1,6 @@
 /*
  * This source code is protected by the EUPL version 1.2 and is part of the "PP Decrypt" library.
+ * SPDX-Licence-Identifier: EUPL-1.2
  * 
  * Copyright: Logius (2018)
  * @author: Bram van Pelt 
@@ -26,8 +27,8 @@ public class EncryptedVerifier {
         this.verificationPoint = verificationPoint;
     }
 
-    public void verify(byte[] payload, Signature signature) {
-        signature.verify(publicKey, verificationPoint, payload);
+    public void verify(byte[] payload, Signature signature, String SchnorrOid) {
+        signature.verify(publicKey, verificationPoint, payload, SchnorrOid);
     }
 
     @Override

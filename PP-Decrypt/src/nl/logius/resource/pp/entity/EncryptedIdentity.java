@@ -1,5 +1,6 @@
 /*
  * This source code is protected by the EUPL version 1.2 and is part of the "PP Decrypt" library.
+ * SPDX-Licence-Identifier: EUPL-1.2
  * 
  * Copyright: Logius (2018)
  * @author: Bram van Pelt 
@@ -14,10 +15,12 @@ import nl.logius.resource.pp.parser.EncryptedEntityParser;
 public class EncryptedIdentity extends EncryptedEntity {
 
     private final ECPoint[] points;
+    private final String SchnorrSignature;
 
     EncryptedIdentity(EncryptedEntityParser parser) {
         super(parser);
         this.points = parser.getPoints();
+        this.SchnorrSignature = parser.getSchnorrOID();
     }
 
     public Identity decrypt(IdentityDecryptKey decryptKey) {

@@ -35,6 +35,7 @@ Special thanks to:
 
 - Logius (For publication of documentation)
 - Martijn Kooij
+- Eric Verheul
 - Ewald Wasscher
 
 For making this repository possible.
