@@ -1,4 +1,4 @@
-WARNING: This repository has been updated at 18-11-2019 whith an additional signature verification method. This new signature method will be the new defacto standard starting from december 2020. If you have implemented this library before the update date, please download the sources again and recomplile. You should be able to replace the libary jars with no problems.
+WARNING: This repository has been superceded by the BSNk software, available at https://wiki.bsn-koppelregister.nl/
 
 -----
 
