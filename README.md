@@ -38,6 +38,7 @@ ACTKNOWLEDGEMENTS
 Special thanks to:
 
 - Logius (For publication of documentation)
+- Jacob Middag
 - Martijn Kooij
 - Eric Verheul
 - Ewald Wasscher
